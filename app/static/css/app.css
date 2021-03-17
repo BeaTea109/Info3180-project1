@@ -1,3 +1,35 @@
 body {
     padding-top: 50px;
 }
+
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+*{
+font-family:  'Manrope'
+}
+.page-header{
+ font-weight: 600;
+ margin-bottom: 1rem;
+ margin-top: 2rem;
+}
+
+.property-form-card{
+    height: '500px';
+    
+}
+
+.property-form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    grid-gap: 2rem;
+    padding: 2rem;
+}
+
+.custom-file-label{
+    align-self: center !important;
+    width: 97.5%  !important;
+    margin-left: 0.75rem  !important ;
+}

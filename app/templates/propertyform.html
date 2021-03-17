@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block title %}Add New Property{% endblock %} {%
+block css %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/styles.css')}}"
+/>
+{% endblock %} {% block main %}
+<div class="property-form">
+  <h1 class="page-header">Add New Property</h1>
+  <div class="card property-form-card">
+    <form method="post" action="{{ url_for('property') }}" enctype = "multipart/form-data" class="form-group property-form-group">
+        {% include 'flash_messages.html' %}
+        {{ form.csrf_token }}
+      <div class="row">
+        <div class="col">
+            {{ form.propertyTitle.label }} {{ form.propertyTitle(class="form-control") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            {{ form.propertyDescription.label }} {{ form.propertyDescription(class="form-control",rows="3") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            {{ form.propertyBedrooms.label }} {{ form.propertyBedrooms(class="form-control",type="number") }}
+        </div>
+        <div class="col">
+            {{ form.propertyBathrooms.label }} {{ form.propertyBathrooms(class="form-control",type="number") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            {{ form.propertyPrice.label }} {{ form.propertyPrice(class="form-control",type="number") }}
+        </div>
+        <div class="col">
+            {{ form.propertyType.label }}
+            <select {{ form.propertyType(class="form-control") }}>
+            {% for o in data %}
+            <option value="{{ o.propertyType }}">{{ o.propertyType }}</option>
+            {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            {{ form.propertyLocation.label }} {{ form.propertyLocation(class="form-control") }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            {{form.propertyPhoto(type="file",class="custom-file-input",id="property-upload-btn") }}
+            <label class="custom-file-label" for="property-upload-btn">Property Photo</label>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col">
+            <button
+              type="submit"
+              id="property-submit-btn"
+              class="btn btn-primary mb-2"
+            >
+              Add Proptery
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

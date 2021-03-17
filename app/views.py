@@ -5,13 +5,17 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
-from flask import render_template, request, redirect, url_for
-
+from app import app, db
+from flask import render_template, request, redirect, url_for, flash
+from .forms import PropertyForm
+from app.models import PropertyObject
+from werkzeug.utils import secure_filename
+import os
 
 ###
 # Routing for your application.
 ###
+
 
 @app.route('/')
 def home():
@@ -25,11 +29,44 @@ def about():
     return render_template('about.html', name="Mary Jane")
 
 
+@app.route('/property', methods=['GET', 'POST'])
+def property():
+    """Display the form for adding a new property."""
+    form = PropertyForm()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            propertyTitle = form.propertyTitle.data
+            propertyDescription = form.propertyDescription.data
+            propertyBathrooms = form.propertyBathrooms.data
+            propertyBedrooms = form.propertyBedrooms.data
+            propertyType = form.propertyType.data
+            propertyPhoto = form.propertyPhoto.data
+            propertyPrice = form.propertyPrice.data
+            propertyLocation = form.propertyLocation.data
+            filename = secure_filename(propertyPhoto.filename)
+            propertyPhoto.save(os.path.join(
+                app.config['UPLOAD_FOLDER'], filename))
+            propertyObj = PropertyObject(propertyLocation=propertyLocation,propertyPrice=propertyPrice, propertyTitle=propertyTitle, propertyDescription=propertyDescription,
+                                   propertyBathrooms=propertyBathrooms, propertyBedrooms=propertyBedrooms, propertyType=propertyType, propertyPhoto=filename)
+            db.session.add(propertyObj)
+            db.session.commit()
+            flash('Property added successfully', 'success')
+            return redirect(url_for("properties"))
+        flash_errors(form)
+    return render_template('propertyform.html',
+                           form=form, data=[{'propertyType': 'Apartment'}, {'propertyType': 'House'}])
+
+
+@app.route('/properties', methods=['GET'])
+def properties():
+    return render_template('properties.html')
 ###
 # The functions below should be applicable to all Flask apps.
 ###
 
 # Display Flask WTF errors as Flash messages
+
+
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
@@ -37,6 +74,7 @@ def flash_errors(form):
                 getattr(form, field).label.text,
                 error
             ), 'danger')
+
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):
@@ -64,4 +102,4 @@ def page_not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host="0.0.0.0",port="8080")
+    app.run(debug=True, host="0.0.0.0", port="8080")
