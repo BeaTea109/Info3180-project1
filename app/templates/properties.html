@@ -1,9 +1,52 @@
-{% extends "base.html" %} 
-{% block title %}Properties{% endblock %}
+{% extends "base.html" %} {% block title %}Properties{% endblock %} {% block
+main %}
 
-{% block main %}
 <div class="properties-listings">
-    <h1 class="page-header">Properties</h1>
+  <h1 class="page-header">Properties</h1>
+  {% include 'flash_messages.html' %}
+  <div class="row">
+    {% for property in properties %}
+    <div class="col-lg-4 col-sm-12 mb-4">
+      <div class="card w-100">
+        <img
+          class="card-img-top property-img"
+          src="{{ url_for('static', filename = property.propertyPhoto)}}"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h6 style="font-weight: 700" class="card-title">
+            {{property.propertyTitle}}
+          </h6>
+          <p class="property-location-information">
+            <small class="property-location-information"
+              ><i
+                id="location-icon"
+                class="property-location-information fa fa-map-marker mr-2"
+              ></i
+              >{{property.propertyLocation}}</small
+            >
+          </p>
+          <div
+            style="margin-top: 1rem !important"
+            class="badge bg-primary text-light"
+          >
+            ${{property.propertyPrice}}
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            style="background-color: #14b6a7 !important;font-weight: 700 !important;"
+            id="view-property-btn"
+            type="button"
+            class="btn bg-success w-100 text-white text-bold"
+            onclick= "window.location.href = `{{ url_for('view_property', propertyid = property.id) }}`"
+          >
+            View Property
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
-

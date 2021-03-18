@@ -1,35 +1,72 @@
 body {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
-  }
-
-*{
-font-family:  'Manrope'
-}
-.page-header{
- font-weight: 600;
- margin-bottom: 1rem;
- margin-top: 2rem;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-.property-form-card{
-    height: '500px';
-    
+* {
+  font-family: "Manrope";
+}
+.page-header {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
 }
 
-.property-form-group{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    grid-gap: 2rem;
-    padding: 2rem;
+.property-form-card {
+  height: "500px";
 }
 
-.custom-file-label{
-    align-self: center !important;
-    width: 97.5%  !important;
-    margin-left: 0.75rem  !important ;
+.property-form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  grid-gap: 2rem;
+  padding: 2rem;
 }
+
+.custom-file-label {
+  align-self: center !important;
+  width: 97.5% !important;
+  margin-left: 0.75rem !important ;
+}
+
+.property-img {
+  height: 12.8rem;
+  object-fit: cover;
+  object-position: center !important;
+}
+
+.property-location-information {
+  color: #868686 !important;
+}
+
+.card-footer{
+    padding: 0 !important;
+}
+
+#view-property-btn{
+    border-radius: 0px  !important;
+}
+
+.card-body > *{
+    margin:0px !important;
+}
+
+.property-info-page{
+    margin-top: 5rem;
+}
+
+
+.limit{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+    object-position: center;
+ }
+.limit img{
+   width: 100%;
+   height: 100%;
+ }

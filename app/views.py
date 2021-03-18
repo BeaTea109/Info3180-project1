@@ -46,8 +46,8 @@ def property():
             filename = secure_filename(propertyPhoto.filename)
             propertyPhoto.save(os.path.join(
                 app.config['UPLOAD_FOLDER'], filename))
-            propertyObj = PropertyObject(propertyLocation=propertyLocation,propertyPrice=propertyPrice, propertyTitle=propertyTitle, propertyDescription=propertyDescription,
-                                   propertyBathrooms=propertyBathrooms, propertyBedrooms=propertyBedrooms, propertyType=propertyType, propertyPhoto=filename)
+            propertyObj = PropertyObject(propertyLocation=propertyLocation, propertyPrice=propertyPrice, propertyTitle=propertyTitle, propertyDescription=propertyDescription,
+                                         propertyBathrooms=propertyBathrooms, propertyBedrooms=propertyBedrooms, propertyType=propertyType, propertyPhoto=filename)
             db.session.add(propertyObj)
             db.session.commit()
             flash('Property added successfully', 'success')
@@ -59,12 +59,33 @@ def property():
 
 @app.route('/properties', methods=['GET'])
 def properties():
-    return render_template('properties.html')
+    properties = db.session.query(PropertyObject).all()
+    update_filepaths(properties=properties)
+
+    return render_template('properties.html', properties=properties)
+
+
+@app.route('/property/<propertyid>')
+def view_property(propertyid):
+    property = db.session.query(PropertyObject).get(propertyid)
+    if property:
+        update_filepaths(property)
+        return render_template("property_info.html", property=property)
+    else:
+        return render_template('404.html')
 ###
 # The functions below should be applicable to all Flask apps.
 ###
 
 # Display Flask WTF errors as Flash messages
+
+
+def update_filepaths(properties):
+    """Add complete filepath to filenames from database"""
+    if type(properties) != list:
+        properties = [properties]
+    for property in properties:
+        property.propertyPhoto = 'uploads/' + property.propertyPhoto
 
 
 def flash_errors(form):

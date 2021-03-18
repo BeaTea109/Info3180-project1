@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block title %}Property Info{% endblock %} {% block
+main %}
+<div class="property-info-page">
+  <div class="card mx-auto" style="max-width: 790px;">
+    <div class="row">
+      <div class="col-md-4">
+          <div class="limit">
+              <img
+                src="{{ url_for('static', filename = property.propertyPhoto)}}"
+                class="card-img"
+                alt="Property Image"
+              />
+          </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body px-4">
+          <h4 style="font-weight: 700;margin-bottom: 1rem !important;" >{{property.propertyTitle}}</h6>
+          <div class="row no-gutters">
+            <div class="col-auto col-sm-3">
+              <span class="badge bg-primary text-light">
+                ${{property.propertyPrice}}
+              </span>
+            </div>
+            <div class="col-auto col-sm-3">
+              <span class="badge bg-warning text-light">
+                {{property.propertyType}}
+              </span>
+            </div>
+          </div>
+          <p class="text-bold"><small>{{property.propertyDescription}}</small></p>
+          <div class="row no-gutters">
+            <div class="col-md-3 col-sm-4 mr-2">
+                <small class="property-location-information"
+                ><i
+                 
+                  class="property-location-information fa fa-bed mr-2"
+                ></i
+                >{{property.propertyBedrooms}} Bedrooms</small
+                >
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <small class="property-location-information"
+                ><i
+                  class="property-location-information fa fa-bath mr-2"
+                ></i
+                >{{property.propertyBathrooms}} Bathrooms</small>
+           
+            </div>
+          </div>
+          <small class="property-location-information"
+            ><i
+              id="location-icon"
+              class="property-location-information fa fa-map-marker mr-2"
+            ></i
+            >{{property.propertyLocation}}</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
