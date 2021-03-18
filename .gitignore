@@ -4,20 +4,16 @@ Thumbs.db
 
 *.py[cod]
 *$py.class
-__pycache__
 
 # virtualenv
+
 .venv/
 venv/
 
-# nodejs
-node_modules
-
-# PyCharm
-.idea
-
-# VS Code
+# VSCode
 .vscode
 
-# SCSS
-.sass-cache
+# Ignore the image files
+*.jpg
+*.png
+*.jpeg
